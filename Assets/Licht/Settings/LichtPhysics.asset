@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1903452838, guid: 09c427c9618dd0e4ba3ce1c8db00ed25, type: 3}
+  m_Name: LichtPhysics
+  m_EditorClassIdentifier: 
+  Debug: 0
+  FrameMultiplier: 0.001
+  PhysicsUpdateFrequency: 0.083333336
+  VelocityMultiplier: 12.5
+  LichtPhysicsMachinery: {fileID: 11400000, guid: c539b85a22c7b5141bce88921ac41335, type: 2}
+  ScriptTimerRef: {fileID: 11400000, guid: d56a6f587a2df9c4881d7601137c733f, type: 2}

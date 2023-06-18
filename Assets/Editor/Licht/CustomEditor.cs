@@ -5,6 +5,7 @@ using System.Linq;
 using Assets.Editor.Licht.Common;
 using Licht.Unity.CharacterControllers;
 using Licht.Unity.Objects;
+using Licht.Unity.Physics;
 using Licht.Unity.PropertyAttributes;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -21,6 +22,7 @@ public class CustomEditor : Editor
     private static readonly Color LichtAgentColor = new(157 / 255f, 255 / 255f, 162 / 255f, 1f);
     private static readonly Color LichtActorColor = new(255 / 255f, 157 / 255f, 238 / 255f, 1f);
     private static readonly Color LichtMovementControllerColor = new(255 / 255f, 150 / 255f, 150 / 255f, 1f);
+    private static readonly Color LichtPhysicsForceColor = new(157 / 255f, 242 / 255f, 255 / 255f, 1f);
 
     private static readonly Type[] CustomLichtTypes = new[]
     {
@@ -28,7 +30,8 @@ public class CustomEditor : Editor
         typeof(BaseGameRunner),
         typeof(BaseGameAgent),
         typeof(LichtMovementController),
-        typeof(BaseActor)
+        typeof(BaseActor),
+        typeof(LichtCustomPhysicsForce)
     };
 
     public override VisualElement CreateInspectorGUI()
@@ -226,6 +229,17 @@ public class CustomEditor : Editor
             return CustomComponents.CreateHeaderLabel(LichtActorColor, "Licht Actor");
         }
 
+        if (type == typeof(LichtCustomPhysicsForce))
+        {
+            return CustomComponents.CreateHeaderLabel(LichtPhysicsForceColor, "Licht Physics Force");
+        }
+
         return null;
     }
+}
+
+[CanEditMultipleObjects]
+[UnityEditor.CustomEditor(typeof(LichtCustomPhysicsForce), true)]
+public class CustomEditorPhysicsForce : CustomEditor
+{
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Assets.Editor.Licht.Common;
 using Licht.Unity.CharacterControllers;
@@ -183,8 +184,12 @@ public class CustomEditor : Editor
 
     private static VisualElement DrawField(SerializedProperty prop)
     {
-        var inspectorName = prop.GetUnderlyingField().GetAttribute<InspectorNameAttribute>();
-        return new PropertyField(prop, inspectorName?.displayName ?? prop.displayName);
+        var field = prop.GetUnderlyingField();
+        var inspectorName = field.GetAttribute<InspectorNameAttribute>();
+        var readOnly = field.GetAttribute<ReadOnlyAttribute>();
+        var propField = new PropertyField(prop, inspectorName?.displayName ?? prop.displayName);
+        propField.SetEnabled(readOnly == null);
+        return propField;
     }
 
     private static VisualElement CreateHeaderByType(Type baseType)

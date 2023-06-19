@@ -6,6 +6,7 @@ using Assets.Editor.Licht.Common;
 using Licht.Unity.CharacterControllers;
 using Licht.Unity.Objects;
 using Licht.Unity.Physics;
+using Licht.Unity.Pooling;
 using Licht.Unity.PropertyAttributes;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -23,6 +24,9 @@ public class CustomEditor : Editor
     private static readonly Color LichtActorColor = new(255 / 255f, 157 / 255f, 238 / 255f, 1f);
     private static readonly Color LichtMovementControllerColor = new(255 / 255f, 150 / 255f, 150 / 255f, 1f);
     private static readonly Color LichtPhysicsForceColor = new(157 / 255f, 242 / 255f, 255 / 255f, 1f);
+    private static readonly Color LichtBaseAIActionColor = new(157 / 255f, 112 / 255f, 112 / 255f, 1f);
+    private static readonly Color LichtBaseAIConditionColor = new(112 / 255f, 112 / 255f, 157 / 255f, 1f);
+    private static readonly Color LichtPooledObjectColor = new(157 / 255f, 139 / 255f, 181 / 255f, 1f);
 
     private static readonly Type[] CustomLichtTypes = new[]
     {
@@ -31,7 +35,10 @@ public class CustomEditor : Editor
         typeof(BaseGameAgent),
         typeof(LichtMovementController),
         typeof(BaseActor),
-        typeof(LichtCustomPhysicsForce)
+        typeof(LichtCustomPhysicsForce),
+        typeof(BaseAIAction),
+        typeof(BaseAICondition),
+        typeof(PooledObject)
     };
 
     public override VisualElement CreateInspectorGUI()
@@ -64,7 +71,7 @@ public class CustomEditor : Editor
         var exclusion = lichtParams.Concat(new[] { "m_Script" }).ToArray();
         if (hasProps && HasAnyProps(serializedObject, false, exclusion))
         {
-            myInspector.Add(CustomComponents.CreateHeaderLabel(Color.grey, "Custom Properties", !hasProps ? "FirstHeaderlabel" : "HeaderLabel"));
+            myInspector.Add(CustomComponents.CreateHeaderLabel(Color.grey, "Custom Properties", "HeaderLabel"));
         }
          
         foreach (var element in DrawPropertiesExcluding(serializedObject, exclusion))
@@ -232,6 +239,21 @@ public class CustomEditor : Editor
         if (type == typeof(LichtCustomPhysicsForce))
         {
             return CustomComponents.CreateHeaderLabel(LichtPhysicsForceColor, "Licht Physics Force");
+        }
+
+        if (type == typeof(BaseAIAction))
+        {
+            return CustomComponents.CreateHeaderLabel(LichtBaseAIActionColor, "Licht AI Action");
+        }
+
+        if (type == typeof(BaseAICondition))
+        {
+            return CustomComponents.CreateHeaderLabel(LichtBaseAIConditionColor, "Licht AI Condition");
+        }
+
+        if (type == typeof(PooledObject))
+        {
+            return CustomComponents.CreateHeaderLabel(LichtPooledObjectColor, "Licht Pooled Component");
         }
 
         return null;

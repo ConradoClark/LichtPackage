@@ -185,7 +185,8 @@ public class CustomEditor : Editor
                 style =
                 {
                     color = Color.grey,
-                    unityFontStyleAndWeight = FontStyle.BoldAndItalic
+                    unityFontStyleAndWeight = FontStyle.BoldAndItalic,
+                    whiteSpace = WhiteSpace.Normal
                 }
             };
             yield return label;
@@ -253,7 +254,7 @@ public class CustomEditor : Editor
 
         if (type == typeof(PooledObject))
         {
-            return CustomComponents.CreateHeaderLabel(LichtPooledObjectColor, "Licht Pooled Component");
+            return CustomComponents.CreateHeaderLabel(LichtPooledObjectColor, "Licht Pooled Object");
         }
 
         return null;
